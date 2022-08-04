@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 /**
  * <p>
@@ -41,7 +44,7 @@ public interface SimilarProductsController {
         })
         @ResponseStatus(value = HttpStatus.OK)
         @GetMapping(value = ConstantsPath.CONST_GET_PRODUCTS_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
-        ResponseEntity<SimilarProducts> getSimilarProducts(@PathVariable @Valid @NotBlank String productId) throws Exception;
+        ResponseEntity<SimilarProducts> getSimilarProducts(@PathVariable @Valid @NotBlank @Digits(integer = 1000, fraction = 0) String productId) throws Exception;
 
 
 }

@@ -13,21 +13,22 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 import static com.akka.backendtest.utils.Constants.LEVEL_DEBUG;
+import static com.akka.backendtest.utils.Constants.LEVEL_WARN;
 import static java.util.Optional.ofNullable;
 
 @AllArgsConstructor
 @Component
 public class ProductApiAdapter implements SimilarIdsPort {
 
-    ProductApiInvoker productApiInvoker;
-    DefaultApi defaultApi;
-    ObjectMapper objectMapper;
+    private ProductApiInvoker productApiInvoker;
+    private DefaultApi defaultApi;
+    private ObjectMapper objectMapper;
 
     @Override
     public Set<String> getProductSimilarIds(String productId) throws Exception {
-        Set<String> response = (productApiInvoker.invoke(() -> defaultApi.getProductSimilaridsWithHttpInfo(productId)).getBody());
-        logAction(productId, response);
-        return response;
+        ResponseEntity<Set<String>> response = (productApiInvoker.invoke(() -> defaultApi.getProductSimilaridsWithHttpInfo(productId)));
+        logAction(productId, response, "SimilarIdsService");
+        return ofNullable(response).map(ResponseEntity::getBody).orElse(null);
 
     }
 
@@ -37,15 +38,19 @@ public class ProductApiAdapter implements SimilarIdsPort {
         ResponseEntity<ProductDetail> response = null;
         try {
             response = (productApiInvoker.invoke(() -> defaultApi.getProductProductIdWithHttpInfo(productId)));
-            logAction(productId, response);
+            logAction(productId, response, "ProductDetailService");
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            UtilsLog.customLog(LEVEL_WARN, e.getLocalizedMessage());
+        } catch (Exception e) {
+            UtilsLog.customLog(LEVEL_WARN, e.getLocalizedMessage());
+            return null;
         }
 
         return ofNullable(response).map(ResponseEntity::getBody).orElse(null);
     }
 
-    public void logAction(String request, Object response) throws JsonProcessingException {
-        UtilsLog.customLog(LEVEL_DEBUG, "Request: " + request + " / " + "Response: " + objectMapper.writeValueAsString(response)) ;
+    public void logAction(String request, Object response, String service) throws JsonProcessingException {
+        UtilsLog.customLog(LEVEL_DEBUG, "Calling "+ service +" - Request: " + request + " / " + "Response: " + objectMapper.writeValueAsString(response)) ;
     }
+
 }

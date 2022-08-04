@@ -12,13 +12,7 @@ import static com.akka.backendtest.utils.Constants.LEVEL_WARN;
 @Component
 public class ProductApiInvoker {
 
-    public <T> ResponseEntity<T> invoke(Callable<ResponseEntity<T>> callable) {
-        try {
+    public <T> ResponseEntity<T> invoke(Callable<ResponseEntity<T>> callable) throws Exception{
             return callable.call();
-        } catch (Exception e) {
-            UtilsLog.customLog(LEVEL_WARN, e.getLocalizedMessage());
-            return null;
-        }
-
     }
 }
