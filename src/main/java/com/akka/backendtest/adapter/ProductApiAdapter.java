@@ -11,8 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
-
-import java.net.SocketTimeoutException;
 import java.util.Set;
 
 import static com.akka.backendtest.utils.Constants.*;

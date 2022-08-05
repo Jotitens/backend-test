@@ -38,11 +38,11 @@ public class UtilsLog {
                 }
                 break;
         }
-
     }
 
     public static void logDash(){
-        customLog(LEVEL_DEBUG, "******************************************************");
+        customLog(LEVEL_DEBUG,
+                "******************************************************");
     }
 
 }
