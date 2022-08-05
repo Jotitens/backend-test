@@ -44,7 +44,7 @@ logging:
   level:
     root: INFO
     org.springframework.web: INFO
-    com.akka.backendtest: DEBUG
+    com.akka.backendtest: ERROR
     org.hibernate: INFO
 management:
   endpoints:

@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
+
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @ApiModel(value = "ResponseError", description = "Error response")
 public class ResponseError {

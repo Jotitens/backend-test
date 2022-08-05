@@ -8,9 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @ApiModel(value = "ResponseDataError", description = "Error date response")
 public class ResponseDataError {

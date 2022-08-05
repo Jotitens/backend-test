@@ -13,7 +13,6 @@ import static com.akka.backendtest.utils.Constants.*;
 public class UtilsLog {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UtilsLog.class);
-    private ObjectMapper objectMapper;
 
     public static void customLog(String level, String message){
 

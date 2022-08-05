@@ -1,4 +1,4 @@
-package com.akka.backendtest.port;
+package com.akka.backendtest.adapter.port;
 
 import com.akka.backendtest.existingApis.model.ProductDetail;
 

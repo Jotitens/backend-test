@@ -8,6 +8,7 @@ class BackendTestApplicationTests {
 
 	@Test
 	void contextLoads() {
+		BackendTestApplication.main(new String[] {"arg1", "arg2", "arg3"});
 	}
 
 }
