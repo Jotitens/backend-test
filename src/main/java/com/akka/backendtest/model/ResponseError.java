@@ -13,6 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Builder
+@Data
 @ApiModel(value = "ResponseError", description = "Error response")
 public class ResponseError {
 

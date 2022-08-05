@@ -41,4 +41,8 @@ public class UtilsLog {
 
     }
 
+    public static void logDash(){
+        customLog(LEVEL_DEBUG, "******************************************************");
+    }
+
 }

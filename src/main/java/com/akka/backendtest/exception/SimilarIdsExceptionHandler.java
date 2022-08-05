@@ -6,7 +6,6 @@ import com.akka.backendtest.utils.UtilsLog;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,7 +24,7 @@ public class SimilarIdsExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<ResponseError> handleNotFoundExecption(HttpClientErrorException e){logError(e.getStatusCode().toString(), e.getMessage());
+    public ResponseEntity<ResponseError> handleNotFoundExecption(HttpClientErrorException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildResponseError(e.getStatusCode(), "No similar products found"));
     }
 

@@ -21,24 +21,25 @@ import static com.akka.backendtest.utils.Constants.*;
 @Component
 public class ProductApiAdapter implements SimilarIdsPort {
 
+
     private DefaultApi defaultApi;
     private ObjectMapper objectMapper;
 
     @Override
     public Set<String> getProductSimilarIds(String productId) throws Exception {
+        logAction(productId, Constants.SIMILAR_IDS_SERVICE, Constants.REQUEST);
         Set<String> response = defaultApi.getProductSimilarids(productId);
-        logAction(productId, response, Constants.SIMILAR_IDS_SERVICE);
+        logAction(response, Constants.SIMILAR_IDS_SERVICE, Constants.RESPONSE);
         return response;
     }
-
-
 
     @Override
     public ProductDetail getProductDetail(String productId)  {
         ProductDetail response = null;
         try {
+            logAction(productId, Constants.PRODUCT_DETAIL_SERVICE, Constants.REQUEST);
             response = defaultApi.getProductProductId(productId);
-            logAction(productId, response,  Constants.PRODUCT_DETAIL_SERVICE);
+            logAction(response, Constants.PRODUCT_DETAIL_SERVICE, Constants.RESPONSE);
         } catch (JsonProcessingException e) {
             UtilsLog.customLog(LEVEL_ERROR, e.getLocalizedMessage());
         } catch (ResourceAccessException | HttpClientErrorException e){
@@ -48,8 +49,13 @@ public class ProductApiAdapter implements SimilarIdsPort {
         return response;
     }
 
-    public void logAction(String request, Object response, String service) throws JsonProcessingException {
-        UtilsLog.customLog(LEVEL_DEBUG, "Calling "+ service +" - Request: " + request + " / " + "Response: " + objectMapper.writeValueAsString(response)) ;
+    public void logAction(Object model, String service, String type) throws JsonProcessingException {
+        if(type.equalsIgnoreCase(Constants.REQUEST)){
+            UtilsLog.customLog(LEVEL_DEBUG, service + " - " + type + ": " + model);
+        } else {
+            UtilsLog.customLog(LEVEL_DEBUG, service + " - " + type + ": " + objectMapper.writeValueAsString(model));
+        }
+
     }
 
 }

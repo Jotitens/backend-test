@@ -11,5 +11,7 @@ public class Constants {
     public static final String ONE = "1";
     public static final String TWO = "2";
     public static final String SHIRT = "Shirt";
+    public static final String REQUEST = "REQUEST";
+    public static final String RESPONSE = "RESPONSE";
 
 }

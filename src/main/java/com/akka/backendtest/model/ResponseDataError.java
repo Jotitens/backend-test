@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Builder
+@Data
 @ApiModel(value = "ResponseDataError", description = "Error date response")
 public class ResponseDataError {
 
