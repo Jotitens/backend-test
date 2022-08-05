@@ -16,7 +16,6 @@ import javax.validation.ConstraintViolationException;
 import java.net.SocketTimeoutException;
 import java.util.List;
 
-import static com.akka.backendtest.utils.Constants.LEVEL_ERROR;
 import static com.akka.backendtest.utils.Constants.LEVEL_WARN;
 
 @ControllerAdvice
