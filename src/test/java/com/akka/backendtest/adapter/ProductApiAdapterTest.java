@@ -23,15 +23,11 @@ public class ProductApiAdapterTest {
     @Mock
     com.akka.backendtest.existingApis.api.DefaultApi defaultApi;
 
-    @Spy
-    ObjectMapper objectMapper;
-
     @InjectMocks
     ProductApiAdapter productApiAdapter;
 
     @BeforeEach
     public void setUp() throws JsonProcessingException {
-        objectMapper = new ObjectMapper();
         MockitoAnnotations.openMocks(this);
     }
 

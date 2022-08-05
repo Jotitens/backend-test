@@ -8,7 +8,6 @@ import com.akka.backendtest.utils.UtilsLog;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -24,19 +23,17 @@ public class SimilarProductsServiceImpl implements SimilarProductsService {
     private ProductApiAdapter productApiAdapter;
 
     public SimilarProducts getSimilarProducts(String productId) throws Exception{
-        UtilsLog.logDash();
-        UtilsLog.customLog(LEVEL_DEBUG,"Starting process - Initial Request: " + productId);
         List<ProductDetail> products = getSimilarIdsById(productId).stream()
                 .map(this::getProductDetailsBySimilarId)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
+        logProcess(productId, products);
+
         if(products.isEmpty()){
             throw new NotFoundException("No products found");
         }
-        UtilsLog.customLog(LEVEL_DEBUG,"Ending process - Final response: ");
-        products.forEach(product -> UtilsLog.customLog(LEVEL_DEBUG, product.toString()));
-        UtilsLog.logDash();
+
         return SimilarProducts.builder()
                 .similarProducts(products)
                 .build();
@@ -46,8 +43,14 @@ public class SimilarProductsServiceImpl implements SimilarProductsService {
         return productApiAdapter.getProductSimilarIds(productId);
     }
 
-
     private ProductDetail getProductDetailsBySimilarId(String similarProductId) {
         return productApiAdapter.getProductDetail(similarProductId);
+    }
+
+    private void logProcess(String request, List<ProductDetail> response){
+        UtilsLog.customLog(LEVEL_DEBUG,"Process Finalized - REQUEST: " +
+                request + " / RESPONSE:  ");
+        response.forEach(product -> UtilsLog.customLog(LEVEL_DEBUG, product.toString()));
+        UtilsLog.logDash();
     }
 }
