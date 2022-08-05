@@ -65,9 +65,6 @@ public class SimilarIdsExceptionHandler {
                     .build();
     }
 
-    public void logError(String code, String message) {
-        UtilsLog.customLog(LEVEL_ERROR, "Error: " + code +  " / " + message);
-    }
     public void logWarn(String message) {
         UtilsLog.customLog(LEVEL_WARN, "Error: " +  message);
     }
